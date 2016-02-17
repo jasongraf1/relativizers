@@ -17,7 +17,7 @@ source("R/data_setup.R")
 # subjrel: the data from subject RCs
 # objrel: the data from non=subject (object) RCs
 
-# function for displaying 
+# function for displaying
 display.dims <- function(x) {
 	for(j in 1:3){
 		names(x) <- c("Conintuous variables", "Categorical variables",
