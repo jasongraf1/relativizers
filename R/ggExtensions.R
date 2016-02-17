@@ -1,69 +1,15 @@
 #############################################################################
-#
 # Functions for extending ggplot2 (v 1.X) graphics
-# v 0.2
-#
-# Jason Grafmiller
-# Aug 04, 2015
+# v 0.2 Jason Grafmiller
 # Last updated: Jan 22, 2016
-#
 # Not fully checked for compatibility with ggplot2 version 2.0
 #############################################################################
 
-# define the Stanford and QLVL colors
-qlvlblue = grDevices::rgb(0.2, 0.2, 0.7,maxColorValue=1) # KU Leuven blue
-SUcard <- grDevices::rgb(164, 0, 29, maxColorValue=255) # Stanford Cardinal
 
-#==============================================
-# General functions
-#==============================================
-
-multiplot <- function(..., plotlist = NULL, file,
-											ncol = 1, layout = NULL, byrow = T) {
-	require(grid)
-	# function for placing multiple independent ggplots into same frame
-	# taken from Winston Chang's code available here:
-	# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
-	# Make a list from the ... arguments and plotlist
-	# ---------------
-	# OUTDATED. use grid.arrange() in grid package
-	# ---------------
-	plots <- c(list(...), plotlist)
-	
-	numPlots = length(plots)
-	
-	# If layout is NULL, then use 'ncol' to determine layout
-	if (is.null(layout)) {
-		# Make the panel
-		# ncol: Number of columns of plots
-		# nrow: Number of rows needed, calculated from # of ncol
-		layout <- matrix(seq(1, ncol * ceiling(numPlots/ncol)),
-										 ncol = ncol, nrow = ceiling(numPlots/ncol), byrow = byrow)
-	}
-	
-	if (numPlots == 1) {
-		print(plots[[1]])
-		
-	} else {
-		# Set up the page
-		grid.newpage()
-		pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
-		
-		# Make each plot, in the correct location
-		for (i in 1:numPlots) {
-			# Get the i,j matrix positions of the regions that contain this subplot
-			matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-			
-			print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
-																			layout.pos.col = matchidx$col))
-		}
-	}
-}
-
+# GENERAL FUNCTIONS -----------------------------------------------------
 
 ggAssoc.plot = function (data, x, y) {
 	# function for creating association plots with ggplot2
-	
 	require(ggplot2, quietly = T)
 	
 	xvar <- deparse(substitute(x))
@@ -83,8 +29,8 @@ ggAssoc.plot = function (data, x, y) {
 	resids <- chisq.test(z)$residuals
 	expect <- sqrt(chisq.test(z)$expected)
 	df <- data.frame(c = as.vector(z),
-									 r = as.vector(resids),
-									 e = as.vector(expect))
+                     r = as.vector(resids),
+                     e = as.vector(expect))
 	df$row <- rep(rownames(z), ncol(z))
 	cols <- c()
 	for (i in seq(1, ncol(z)))
@@ -119,8 +65,8 @@ ggAssoc.plot = function (data, x, y) {
 
 
 ggBar.plot <- function(data, x, y, facet = NULL, percent = T,
-											 facet.cols = NULL, scales = "fixed",
-											 width = 0.7, size = 5, opp.cols = FALSE){
+		facet.cols = NULL, scales = "fixed",
+		width = 0.7, size = 5, opp.cols = FALSE){
 	# create barplot of proportions with counts superimposed over plots
 	# allows for faceting by 1 or 2 groups entered as character vector
 	
