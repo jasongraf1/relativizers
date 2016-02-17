@@ -18,19 +18,19 @@ relativizers <- read.delim("data/relative_clauses.txt", strip.white = T)
 # recode stuff
 # order corpus levels
 relativizers$corpus <- factor(relativizers$corpus,
-															levels = c("Brown", "LOB", "Frown", "FLOB"))
+	levels = c("Brown", "LOB", "Frown", "FLOB"))
 
 relativizers$genre <- relevel(relativizers$genre, ref = "press")
 
 # antNum2: new factor of antecedent number
-relativizers$antNum2 <- car::recode(as.factor(relativizers$antNum),
-															 " '0' = 'other';
-															 '1' = 'singular';
-															 '2' = 'plural' ")
+relativizers$antNum2 <- car::recode(as.factor(relativizers$antNum), 
+	" '0' = 'other';
+	'1' = 'singular';
+	'2' = 'plural' ")
 
 # antPOS2: binary factor for Ant POS 
 relativizers$antPOS2 <- factor(ifelse(relativizers$antPOS == 'N',
-																			'noun', 'other'))
+	'noun', 'other'))
 
 
 # time2: binary factor of time
@@ -45,7 +45,7 @@ relativizers$plainText <- trim(relativizers$plainText)
 
 # renames some things
 names(relativizers)[c(26:27, 32, 35)] <- c("meanWordLen", "meanSentLen", 
-																					 "passiveActiveRatio", "nounVerbRatio")
+	"passiveActiveRatio", "nounVerbRatio")
 
 ### obj function RC dataset
 objrel <- droplevels(subset(relativizers, relFct == "Obj"))

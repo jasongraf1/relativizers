@@ -1,12 +1,7 @@
-﻿#############################################################################
-#
-# Adapted functions for working with MCMCglmm objects
-# v 0.2
-#
-# Jason Grafmiller
-# Aug 04, 2015
 #############################################################################
-
+# Adapted functions for working with MCMCglmm objects
+# v 0.2 Jason Grafmiller
+#############################################################################
 
 # prior setting ---------------------------------------------------------
 
@@ -39,38 +34,35 @@ prior.scale <- function(formula, data){
 	X1 <- model.matrix(formula, data)
 	X2 <- get_all_vars(formula, data)
 	X2 <- as.data.frame(lapply(X2, 
-														 function(x){if(is.numeric(x)){scale(x,
-																																	 scale=sd(x)*2)} else{x}}))
+		function(x){if(is.numeric(x)){scale(x,
+			scale=sd(x)*2)} else{x}}))
 	X2 <- model.matrix(formula, data = X2)
 	X2[, -1] <- apply(X2[, -1], 2,
-										function(x){if(any(!x%in%c(0,1))){x} else{scale(x,
-								 											 center = sum(x)/length(x), scale = 1)}})
+		function(x){if(any(!x%in%c(0,1))){x} else{scale(x,
+			center = sum(x)/length(x), scale = 1)}})
 	crossprod(t(solve(t(X1) %*% X1, t(X1) %*% X2)))
 }
 
-
-# model checking funcitons ----------------------------------------------
+# model checking functions ----------------------------------------------
 
 # these were taken from:
 # https://github.com/aufrank/R-hacks/blob/master/MCMCglmm-utils.R
 
 vif.MCMCglmm <- function (fit, intercept.columns = c(1)) {
-		nF <- fit$Fixed$nfl
-		v <- cov(as.matrix(fit$X[,1:nF]))
-		nam <- colnames(fit$Sol[,1:nF])
-
-		v <- v[-intercept.columns, -intercept.columns, drop = FALSE]
-		nam <- nam[-intercept.columns]
-
-		d <- diag(v)^0.5
-		v <- diag(solve(v/(d %o% d)))
-		names(v) <- nam
-		v
+	nF <- fit$Fixed$nfl
+	v <- cov(as.matrix(fit$X[,1:nF]))
+	nam <- colnames(fit$Sol[,1:nF])
+	v <- v[-intercept.columns, -intercept.columns, drop = FALSE]
+	nam <- nam[-intercept.columns]
+	d <- diag(v)^0.5
+	v <- diag(solve(v/(d %o% d)))
+	names(v) <- nam
+	v
 	}
 
 
-kappa.MCMCglmm <- function (fit, add.intercept = TRUE,
-														scale = TRUE, intercept.columns = c(1)) {
+kappa.MCMCglmm <- function (fit, add.intercept = TRUE, scale = TRUE, 
+		intercept.columns = c(1)) {
 	nF <- fit$Fixed$nfl
 	X <- fit$X[,1:nF]
 	if (add.intercept & scale) {
@@ -84,11 +76,9 @@ kappa.MCMCglmm <- function (fit, add.intercept = TRUE,
 	}
 }
 
-
 # Displying model output ------------------------------------------------
 
 MCMCglmm.table <- function(data, betas = TRUE){
-	
 	# functions
 	lower <- function(x) quantile(x, probs = .025)
 	upper <- function(x) quantile(x, probs = .975)
@@ -97,19 +87,15 @@ MCMCglmm.table <- function(data, betas = TRUE){
 	
 	df <- data.frame(mean = apply(data, 2, "mean"))
 	df <- cbind(df,
-						 data.frame(lower = apply(data, 2, lower)))
+		data.frame(lower = apply(data, 2, lower)))
 	df <- cbind(df,
-						 data.frame(upper = apply(data, 2, upper)))
+		data.frame(upper = apply(data, 2, upper)))
 	if(betas){
-		df <- cbind(df,
-								data.frame(below = apply(data, 2, below0)))
-		df <- cbind(df,
-								data.frame(above = apply(data, 2, above0)))
-		colnames(df) <- c("posterior mean", "l-95% HPDI", "u-95% HPDI", "P(&beta; < 0)", "P(&beta; > 0)")
+		df <- cbind(df, data.frame(below = apply(data, 2, below0)))
+		df <- cbind(df, data.frame(above = apply(data, 2, above0)))
+		colnames(df) <- c("posterior mean", "l-95% HPDI", "u-95% HPDI", 
+			"P(&beta; < 0)", "P(&beta; > 0)")
 	}
 	else colnames(df) <- c("posterior mean", "l-95% HPDI", "u-95% HPDI")
 	return (df)
 }
-
-
-
