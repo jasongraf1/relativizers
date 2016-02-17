@@ -5,14 +5,17 @@ Documentation and R code for multinomial analysis of English restrictive relativ
 ## Organization of repository
 
 This repository contains all the necessary files for reproducing the analysis, including the dataset and R code, along with some additional documentation. The files are organized into the following subdirectories:
-- **R*
+- **R**
 - **data**
-- **documents*
+- **documents**
+
+In addition, an [.Rprofile](.Rprofile) script is included which loads all the necessary packages along with all the "Extensions.R" files.
+
 
 #### *R* 
 
 This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions. 
-- **data_setup.R**: code for loading and readying the dataset
+- [data_setup.R](R/data_setup.R): code for loading and readying the dataset
 - **FAMD_analysis.R**: code for running factor analysis of mixed data
 - **MCMCglmm_models.R**: code for fitting the MCMCglmm models, obtaining the model predictions, and plotting and displaying the model results. 
 - **MCMCglmmExtensions.R**: functions for working with MCMCglmm objects, e.g. calculating VIF and &kappa; scores
@@ -27,4 +30,4 @@ This subdirectory contains the tab-delimited file **relative_clauses.txt**. This
 
 #### documents
 
-This subdirectory contains two files documenting the dataset (**
+This subdirectory contains two files documenting the dataset (**CodeBookDec2011.pdf**) and two files from the MCMCglmm package documentation.
