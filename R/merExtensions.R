@@ -1,10 +1,6 @@
 #############################################################################
-#
 # Adapted functions for working with lme4 merMod objects
-# v 0.1
-#
-# Jason Grafmiller
-# Aug 04, 2015
+# v 0.1 Jason Grafmiller
 #############################################################################
 
 aic.table <- function(fit){
@@ -28,25 +24,20 @@ aic.table <- function(fit){
 		# find main effect and any interactions
 		cur_vars = paste(vars[which(grepl(vars[i], vars))], collapse = ' - ')
 		new.formula = reformulate(termlabels = paste(". -", cur_vars, ""),
-															response = ".")
-		mod.aic <- c(mod.aic,
-								 AICc(update(fit, new.formula)))
+			response = ".")
+		mod.aic <- c(mod.aic, AICc(update(fit, new.formula)))
 		cat(cur_vars, ", ", sep = "")
 	}
 
 	# add AIC values to dataframe
 	aic.vals <- c(full.aic, mod.aic)
 	aic.diffs <- aic.vals - full.aic
-	aic.data <- data.frame(Predictor = c("Full model", vars),
-												 AIC = aic.vals,
-												 AICdiff = aic.diffs
-	)
+	aic.data <- data.frame(Predictor = c("Full model", vars), AIC = aic.vals, AICdiff = aic.diffs)
 	aic.data <- droplevels(subset(aic.data, AICdiff != 0))
 	# sort the dataframe
 	aic.data <- aic.data[order(aic.data$AICdiff, decreasing = T),]
 	# order the factor levels (for ggplot2)
-	aic.data$Predictor <- factor(aic.data$Predictor,
-															 levels = rev(aic.data$Predictor))
+	aic.data$Predictor <- factor(aic.data$Predictor, levels = rev(aic.data$Predictor))
 	return (aic.data)
 }
 
@@ -114,10 +105,7 @@ collin.fnc.mer <- function(fit){
 }
 
 
-kappa.mer <- function (fit,
-											 scale = TRUE, center = FALSE,
-											 add.intercept = TRUE,
-											 exact = FALSE) {
+kappa.mer <- function (fit, scale = TRUE, center = FALSE, add.intercept = TRUE, exact = FALSE) {
 	# adapted version of base R's kappa()
 	X = getME(fit,"X")
 	nam = names(fixef(fit))
@@ -185,58 +173,6 @@ somers.mer <- function(fit, ...){
 		return (somers2(fitted(fit), as.numeric(y), ...))
 	}
 	else stop("object not of class glmerMod")
-}
-
-
-sum.stats.mer <- function(fit, y = NULL, rnd = T, R2 = T){
-	# function for creating a list object with summary statistics for
-	# mixed-effects models.
-	require(Hmisc, quietly = TRUE)
-	require(MuMIn, quietly = TRUE)
-	response <- getME(fit,"y")
-	z <- attr(fit@frame, "terms")
-	depvar <- names(attr(terms(z), "dataClasses")[attr(terms(z),"response")])
-	outcomes <- levels(fit@frame[,1])
-	probs <- fitted(fit)
-	DF <- attr(logLik(fit),"df")
-	N <- length(fit@resp$n)
-	logL <- logLik(fit)[1]
-	AIC <- AIC(fit)
-	AIC.c <- AIC(fit) + ((DF+1)*2*DF)/(N-DF-1)
-	C <- somers2(probs, response)[1]
-	Dxy <- somers2(probs, response)[2]
-	percent.corr <- sum(ifelse(probs>.5,1,0)==response)/N
-	baseline.acc <- max(table(response))/N
-	k <- kappa(cbind(1, scale(getME(fit,"X")[,-1],center=F)), exact=T)
-	R2 <- r.squaredGLMM(fit)
-	# computing R2 takes some time, so leave it as optional
-	if(R2){
-		R2.m <- R2[[1]]
-		R2.c <- R2[[2]]
-		stats = list(N = as.integer(N), df = as.integer(DF),
-								 logLik = logL,
-								 AIC = AIC,
-								 AICc = AIC.c,
-								 C = C,
-								 Dxy = Dxy,
-								 percent.corr = (100*percent.corr),
-								 baseline.acc = (100*baseline.acc),
-								 kappa = k,
-								 R2.m = R2.m,
-								 R2.c = R2.c)
-	}
-	else{
-		stats = list(N = as.integer(N), df = as.integer(DF),
-								 logLik = logL,
-								 AIC = AIC,
-								 AICc = AIC.c,
-								 C = C,
-								 Dxy = Dxy,
-								 percent.corr = (100*percent.corr),
-								 baseline.acc = (100*baseline.acc),
-								 kappa = k)
-	}
-	return(stats)
 }
 
 
