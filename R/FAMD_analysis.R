@@ -1,13 +1,9 @@
 ##############################################################################
-#
 # Factor Analysis of Mixed Data of English relativizers 
-#
 # Jason Grafmiller
-# last modified: 12/10/2015
 ##############################################################################
 
 library(FactoMineR)
-
 
 # DATA ------------------------------------------------------------------
 
@@ -21,7 +17,7 @@ source("R/data_setup.R")
 display.dims <- function(x) {
 	for(j in 1:3){
 		names(x) <- c("Conintuous variables", "Categorical variables",
-									"Categories")
+				"Categories")
 		cat(paste(names(x[j])), ":\n", sep = "")
 		print(round(x[[j]], 3))
 		cat('\n')
@@ -41,13 +37,11 @@ names(subjrel)
 # factors included:
 style <- names(subjrel)[c(7, 25:29,31:32, 34:37)]
 
-
 #=== subject RCs =====================================
 
 fmd.1 <- FAMD(subjrel[, style], ncp = length(style))
 
 summary(fmd.1)
-
 
 #--- Eigenvalues ---
 
@@ -57,9 +51,7 @@ round(fmd.1$eig, 2)
 
 # inspect the contributions of the variables
 round(fmd.1$var$contrib, 2)
-
 round(fmd.1$var$cos2, 4)
-
 
 #--- Correlations of the dimensions ---
 
@@ -80,20 +72,15 @@ dd1[[2]]
 # high TTR and nouniness, press genre
 # dimension 2 is about elaborated, yet informationally sparse, style
 
-
 #=== object RCs =====================================
 
 fmd.2 <- FAMD(objrel[, style], ncp = length(style))
-
 summary(fmd.2)
 
 #--- Eigenvalues ---
-
 fmd.2$eig
-
 # inspect the contributions of the variables
 round(fmd.2$var$contrib, 2)
-
 
 #--- Correlations of the dimensions ---
 # include Dims 1-7. Only use those dimensions that account for 5% of variance 
@@ -118,22 +105,15 @@ for(i in 1:7){
 # INTERNAL FACTORS ------------------------------------------------------
 
 names(subjrel) # same as objrel
-
 internal <- names(subjrel)[c(22:23, 12, 14, 40:42, 18:20)]
 
-
 #=== subject RCs =====================================
-
 fmd.3 <- FAMD(subjrel[, internal], ncp = length(internal))
-
 summary(fmd.3)
 
 #--- Eigenvalues ---
-
 fmd.3$eig # include all
-
 round(fmd.3$var$contrib, 2)
-
 
 #--- Correlations of the dimensions ---
 # look at associations of the dimensions
@@ -173,26 +153,17 @@ dd3[[9]]
 # -
 # nested = yes
 
-
-
 #=== object RCs =====================================
 
 fmd.4 <- FAMD(objrel[, internal], ncp = length(internal))
-
 summary(fmd.4)
 
-
 #--- Eigenvalues ---
-
 fmd.4$eig # include all
-
 round(fmd.4$var$contrib, 2)
-
 
 #--- Correlations of the dimensions ---
 dd4 <- dimdesc(fmd.4, axes = 1:9)
-
-
 
 dd4[[1]] # distance from ant to RC
 
@@ -212,7 +183,6 @@ dd4[[8]] # nestedness and RC length, and indefinite ants
 
 dd4[[9]] # adjacent RC and long RC
 
-
 # loop through and display all:
 for(i in 1:9){
 	d <- dd4[[i]]
@@ -222,7 +192,6 @@ for(i in 1:9){
 	}
 	cat('\n')
 }
-
 
 # ADD TO DATAFRAMES -----------------------------------------------------
 
@@ -243,27 +212,18 @@ colnames(obj.int.dims) <- paste("Int", colnames(obj.int.dims), sep = '.')
 objrel <- cbind(objrel, obj.int.dims)
 
 
-
 # ALL PREDCITORS COMBINED -----------------------------------------------
-
 # Just for fun, run two more FAMDs with all the predictors combined
-
 n.vars <- length(c(style, internal)) 
-
 
 #=== subject RCs =====================================
 
 fmd.5 <- FAMD(subjrel[, c(style, internal)], ncp = n.vars)
-
 summary(fmd.5)
 
-
 #--- Eigenvalues ---
-
 round(fmd.5$eig,3)
-
 round(fmd.5$var$contrib, 2)
-
 
 #--- Correlations of the dimensions ---
 dd5 <- dimdesc(fmd.5, axes = 1:21)
@@ -295,15 +255,12 @@ dd5[[7]]
 subj.5.dims <- fmd.5$ind$coord[, 1:17]
 subjrel <- cbind(subjrel, subj.5.dims)
 
-
 #=== object RCs =====================================
 
 fmd.6 <- FAMD(objrel[, c(style, internal)], ncp = n.vars)
 
 #--- Eigenvalues ---
-
 round(fmd.6$eig,3)
-
 round(fmd.6$var$contrib,3)
 
 #--- Eigenvalues ---
@@ -320,7 +277,6 @@ dd6[[2]] # clause complexity
 # clausal complexity (subordConj, passives, sent length) & learned
 # -
 # information density (TTR, nouniness) & newspper
-
 
 dd6[[3]] # distance from ant to RC
 # + 
@@ -351,17 +307,16 @@ obj.5.dims <- fmd.6$ind$coord[, 1:17]
 objrel <- cbind(objrel, obj.5.dims)
 
 
-
 # CREATE GRAPHICS -------------------------------------------------------
 
 # code for creating tables of associations for a given dimension. 
 
 a <- tableGrob(round(dd3[[1]][[1]], 3), theme = ttheme_minimal(), 
-							 widths = unit(c(1, .5), "mm"))
+				widths = unit(c(1, .5), "mm"))
 b <- tableGrob(round(dd3[[1]][[2]], 3), theme = ttheme_minimal(), 
-							 widths = unit(c(2, .5), "cm"))
+				widths = unit(c(2, .5), "cm"))
 d <- tableGrob(round(dd3[[1]][[3]], 3), theme = ttheme_minimal(), 
-							 widths = unit(c(1, .5), "cm"))
+				widths = unit(c(1, .5), "cm"))
 grid.arrange(a, b, d, nrow = 1, widths = c(.5,.2,.5))
 
 
