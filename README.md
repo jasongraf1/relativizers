@@ -2,9 +2,12 @@
 
 Documentation and R code for multinomial analysis of English restrictive relativizers, as reported in Grafmiller, Szmrecsanyi & Hinrichs (forthcoming). 
 
-## Organization
+## Organization of repository
 
-This repository contains all the necessary files for reproducing the analysis, including the dataset and R code, along with some additional documentation. The files are organized into the following directories:
+This repository contains all the necessary files for reproducing the analysis, including the dataset and R code, along with some additional documentation. The files are organized into the following subdirectories:
+- **R*
+- **data**
+- **documents*
 
 #### *R* 
 
@@ -17,3 +20,11 @@ This subdirectory contains R scripts for setting up the dataframe, running the f
 - **ggExtensions.R**: functions for simplifying plots in [ggplot2](http://docs.ggplot2.org/current/) 
 - **statsExtensions.R**: functions for various statistical procedures, e.g. calculating standard errors, effect size measures (Cohen's *d*, Cramer's *V*), and scaling variables
 - **generalExtensions.R**: miscellaneous functions for, e.g. manipulating objects, creating pop-up notifications, loading/detaching multiple items simultaneously.
+
+#### data
+
+This subdirectory contains the tab-delimited file **relative_clauses.txt**. This is a modified version of the dataset collected and annotated by Hinrichs, Szmrecsanyi & Bohmann ([2015](https://muse.jhu.edu/journals/language/v091/91.4.hinrichs.html)). 
+
+#### documents
+
+This subdirectory contains two files documenting the dataset (**
