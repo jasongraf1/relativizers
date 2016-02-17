@@ -1,19 +1,14 @@
 #############################################################################
-#
 # Some general useful functions for working in R
-# v 0.1
-#
-# Jason Grafmiller
-# Aug 04, 2015
+# v 0.1 Jason Grafmiller
 #############################################################################
 
 detachAllPackages <- function(keep = NULL, keep.basic = TRUE) {
 	# function for detaching all attached packages (except basic ones)
 	basic.packages <- c("package:stats","package:graphics","package:grDevices",
-											"package:utils","package:datasets","package:methods",
-											"package:base")
+		"package:utils","package:datasets","package:methods", "package:base")
 	package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1,
-																	TRUE, FALSE)]
+		TRUE, FALSE)]
 	if (!is.null(keep)){
 		package.list <- setdiff(package.list, paste("package", keep, sep = ":"))
 	}
@@ -32,7 +27,7 @@ filter.infrequent <- function(words, threshold = 5, dummy = "OTHER") {
 	return (relevel(
 		as.factor(
 			ifelse(words %in% levels(as.factor(words))[table(words) >= threshold],
-						 as.character(words), dummy)), dummy))
+				 as.character(words), dummy)), dummy))
 }
 
 
@@ -121,10 +116,10 @@ my.library <- function(packages){
 notify <- function(x = NULL){
 	if (is.null(x)){
 		system('CMD /C "ECHO The R process has finished running && PAUSE"', 
-					 invisible=FALSE, wait=FALSE)
+			invisible=FALSE, wait=FALSE)
 	}
 	else { system(paste('CMD /C "ECHO ', x, ' && PAUSE"'), 
-					invisible=FALSE, wait=FALSE) }
+			invisible=FALSE, wait=FALSE) }
 }
 
 rm.func <- function (){
