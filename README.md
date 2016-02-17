@@ -33,4 +33,4 @@ This subdirectory contains the tab-delimited file [relative_clauses.txt](data/re
 
 #### documents
 
-This subdirectory contains two files documenting the dataset [CodeBookDec2011.pdf](documents/CodeBookDec2011.pdf) and two files from the MCMCglmm package documentation.
+This subdirectory contains two files documenting the dataset: the [code book](documents/CodeBookDec2011.pdf) and a [description](relativizers/documents/MANUAL FOR CODING RELATIVIZERS IN THE BROWN CORPORA.pdf) of how tokens were extracted. I've also included two files from the MCMCglmm package documentation.
