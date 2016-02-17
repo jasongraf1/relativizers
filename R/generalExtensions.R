@@ -30,37 +30,10 @@ filter.infrequent <- function(words, threshold = 5, dummy = "OTHER") {
 				 as.character(words), dummy)), dummy))
 }
 
-
 insert <- function(v, e, pos){
 	# inserts item 'e' into vector 'v' at position 'pos'
 	return(c(v[1:(pos-1)], e, v[(pos):length(v)]))
 }
-
-
-## variables and functions for adding captions to tables, and figures in html
-# Captions from Benedikt Heller. The following variables must be defined:
-# n_tables   <<- 0;
-# n_figures  <<- 0;
-# n_listings <<- 0;
-
-insert_caption <- function(type, text) {
-	html <- "<p class='caption'><span class='graphtype'>"
-	if (type=="table") {
-		n_tables <<- n_tables + 1;
-		html <- paste(html, "Table ", n_tables, "</span>.", sep="");
-	}
-	else if (type=="figure") {
-		n_figures <<- n_figures + 1;
-		html <- paste(html, "Figure ", n_figures, "</span>.", sep="");
-	}
-	else if (type=="listing") {
-		n_listings <<- n_listings + 1;
-		html <- paste(html, "Listing ", n_listings, "</span>.", sep="");
-	}
-	html <- paste(html, text, "</p>");
-	I(html)
-}
-
 
 interleave.v <- function(x, y){
 	# function for interleaving two vectors
@@ -107,13 +80,14 @@ join2 <- function (strings, sep = "", finalSep = NULL){
 	}
 }
 
-
 my.library <- function(packages){
+	# load multiple libraries at a time
 	invisible(sapply(packages, silent.load))
 }
 
 
 notify <- function(x = NULL){
+	# create a pop-up message
 	if (is.null(x)){
 		system('CMD /C "ECHO The R process has finished running && PAUSE"', 
 			invisible=FALSE, wait=FALSE)
@@ -123,16 +97,19 @@ notify <- function(x = NULL){
 }
 
 rm.func <- function (){
+	# remove all custom functions from workspace 
 	rm(list = ls()[sapply(ls(), function(n){is.function(get(n))})])
 }
 
 
 rm.nonfunc <- function (){
+	# remove all non-function objects from workspace
 	rm(list = ls()[sapply(ls(), function(n){!is.function(get(n))})])
 }
 
 
 silent.load <- function(a.package){
+	# silently loads library
 	suppressWarnings(suppressPackageStartupMessages(
 		library(a.package, character.only = TRUE)))
 }
