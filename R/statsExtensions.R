@@ -92,7 +92,7 @@ c. <- function(x, center = NULL) {
 			m <- matrix(nrow = nrow(x), ncol = ncol(x))
 			colnames(m) <- paste("c.", colnames(x), sep = "")
 			for (i in 1:ncol(x)) {
-				m[,i] = x[,i] - mean(x[,i])
+				m[,i] <_ as.numeric(x[,i]) - mean(as.numeric(x[,i]))
 			}
 			return(as.data.frame(m))
 		}
