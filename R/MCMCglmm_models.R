@@ -95,8 +95,8 @@ obj.prior = list(R = list(V = IJ, fix = 1))
 # by-verb random slopes for the effect of modality (a binary predictor). 
 
 obj.prior$G <- list(G1 = list(V = diag(k - 1), n = k - 1),
-										G2 = list(V = diag(4), n = 4), # for random slope of corpus
-										G3 = list(V = diag(k - 1), n = k - 1)
+	G2 = list(V = diag(4), n = 4), # for random slope of corpus
+	G3 = list(V = diag(k - 1), n = k - 1)
 )
 
 # Since we are interested in comparing the object and subject functions, I'll
@@ -125,42 +125,42 @@ obj.prior$G <- list(G1 = list(V = diag(k - 1), n = k - 1),
 # %%%% select and run %%%%
 t1 <- proc.time() # set time
 obj.m1a <- MCMCglmm(rel ~ -1 +
-											trait + 
-											trait:(Style.Dim.1 +
-														 	Style.Dim.2 +
-														 	Style.Dim.3 +
-														 	Style.Dim.4 +
-														 	Style.Dim.5 +
-														 	Style.Dim.6 +
-														 	Style.Dim.7 +
-														 	Int.Dim.1 +
-														 	Int.Dim.2 +
-														 	Int.Dim.3 +
-														 	Int.Dim.4 +
-														 	Int.Dim.5 +
-														 	Int.Dim.6 +
-														 	Int.Dim.7 +
-														 	Int.Dim.8 +
-														 	Int.Dim.9 +
-														 	variety +
-														 	time2 +
-														 	variety:time2
-											),
-										random = ~ us(trait):category + 
-											us(corpus):category +
-											us(trait):file,
-										rcov = ~us(trait):units, 
-										pr = T, # store random effects
-										prior = obj.prior, 
-										data = objrel2, 
-										family="categorical",
-										verbose = F, burnin = 50000, nitt = 150000, thin = 100)
+	trait + 
+	trait:(Style.Dim.1 +
+		Style.Dim.2 +
+		Style.Dim.3 +
+		Style.Dim.4 +
+		Style.Dim.5 +
+		Style.Dim.6 +
+		Style.Dim.7 +
+		Int.Dim.1 +
+		Int.Dim.2 +
+		Int.Dim.3 +
+		Int.Dim.4 +
+		Int.Dim.5 +
+		Int.Dim.6 +
+		Int.Dim.7 +
+		Int.Dim.8 +
+		Int.Dim.9 +
+		variety +
+		time2 +
+		variety:time2
+		),
+	random = ~ us(trait):category + 
+		us(corpus):category +
+		us(trait):file,
+	rcov = ~us(trait):units, 
+	pr = T, # store random effects
+	prior = obj.prior, 
+	data = objrel2, 
+	family="categorical",
+	verbose = F, burnin = 50000, nitt = 150000, thin = 100)
 
 obj.m1a.runtime <- proc.time() - t1 # time to run (in seconds)
 
 notify(paste('Model finished! Runtime:', 
-						 round(obj.m1a.runtime[3]/60, 2), 'minutes'), 
-			 invisible=FALSE, wait=FALSE)
+	round(obj.m1a.runtime[3]/60, 2), 'minutes'), 
+	invisible=FALSE, wait=FALSE)
 # %%%%%%%%%
 
 summary(obj.m1a)
@@ -218,13 +218,13 @@ for (i in 1:N){
 	# do which
 	modWhich[i, 1:40] <- as.vector(modWhich[i, 1:40] * coefs3)
 	ranef1w <- paste("category.rel.WHICH.category", 
-									 objrel2[i, 6], sep = '.')
+		objrel2[i, 6], sep = '.')
 	modWhich[i, 41] <- as.vector(categoryIntsWhich[ranef1w])
 	ranef2 <- paste("category", objrel2[i, 2], "category", 
-									objrel2[i, 6], sep = '.')
+		objrel2[i, 6], sep = '.')
 	modWhich[i, 42] <- as.vector(categorySlopes[ranef2])
 	ranef3w <- paste("file.rel.WHICH.file", 
-									 objrel2[i, 5], sep = '.')
+		objrel2[i, 5], sep = '.')
 	modWhich[i, 43] <- as.vector(filesWhich[ranef3w])
 	
 	# do zero
@@ -306,12 +306,12 @@ fixed.obj <- as.data.frame(as.matrix(obj.m1a$Sol))[,1:40]
 int.var1 <- melt(fixed.obj[, 17:34])
 int.var1$rel <- rep(c("WHICH", "ZERO"), each = 1000)
 int.var1$pred <- factor(rep(paste("Internal.Dim", 1:9, sep = '.'), each = 2000),
-												levels = rev(paste("Internal.Dim", 1:9, sep = '.')))
+			levels = rev(paste("Internal.Dim", 1:9, sep = '.')))
 
 style.var1 <- melt(fixed.obj[, 3:16])
 style.var1$rel <- factor(rep(c("WHICH", "ZERO"), each = 1000))
 style.var1$pred <- factor(rep(paste("Style.Dim", 1:7, sep = '.'), each = 2000),
-													levels = rev(paste("Style.Dim", 1:7, sep = '.')))
+			levels = rev(paste("Style.Dim", 1:7, sep = '.')))
 
 ext.var1 <- melt(fixed.obj[, 35:38])
 ext.var1$rel <- rep(c("WHICH", "ZERO"), each = 1000)
@@ -323,50 +323,50 @@ ext.var1$pred <- rep(c("variety (= BrE)", "time (= 1990s)"), each = 2000)
 
 # label dimensions transparently
 dims <- c("1. RC = non-adjacent", 
-					"2. Antecedent head = non-empty", 
-					"3. RC length", 
-					"4. prior rel. = NONE",
-					"5. prior rel. = THAT", 
-					"6. Antecedent = plural", 
-					"7. prior rel. = ZERO",
-					"8. nested = NO", 
-					"9. RC = adjacent")
+	"2. Antecedent head = non-empty", 
+	"3. RC length", 
+	"4. prior rel. = NONE",
+	"5. prior rel. = THAT", 
+	"6. Antecedent = plural", 
+	"7. prior rel. = ZERO",
+	"8. nested = NO", 
+	"9. RC = adjacent")
 
 ggplot(int.var1, aes(pred, value, group = rel)) + coord_flip() +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	stat_summary(fun.data = median_hilow, aes(shape = rel), 
-							 geom = "errorbar", position = position_dodge(width = 0.5),
-							 width = .1) +
+		 geom = "errorbar", position = position_dodge(width = 0.5),
+		 width = .1) +
 	stat_summary(fun.y = mean, aes(shape = rel), size = 4,
-							 geom = "point", position = position_dodge(width = 0.5)) +
+		 geom = "point", position = position_dodge(width = 0.5)) +
 	labs(x = "", y = "posterior log odds of relativizer\n(baseline = THAT)", 
-			 title = "Internal predictors") +
+		 title = "Internal predictors") +
 	scale_shape_manual(values = c(16, 2)) + 
 	scale_x_discrete(labels = rev(dims)) +
 	theme(legend.justification=c(1,1), legend.position=c(1,1), 
-				legend.text = element_text(face = "italic"),
-				legend.title = element_blank())
+		legend.text = element_text(face = "italic"),
+		legend.title = element_blank())
 
 
 #--- Stylistic predictors ---
 # make the dot plots with HPDI bars
 dims2 <- c(expression(paste("1.", interpersonal %<->% informational)), 
-					 expression(paste("2.", informal %<->% formal)))
+		expression(paste("2.", informal %<->% formal)))
 
 
 ggplot(style.var1[1:4000,], aes(pred, value, group = rel)) + coord_flip() +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	stat_summary(fun.data = median_hilow, aes(shape = rel), 
-							 geom = "errorbar", position = position_dodge(width = 0.5),
-							 width = .1) +
+		 geom = "errorbar", position = position_dodge(width = 0.5),
+		 width = .1) +
 	stat_summary(fun.y = mean, aes(shape = rel), size = 4,
-							 geom = "point", position = position_dodge(width = 0.5)) +
+		 geom = "point", position = position_dodge(width = 0.5)) +
 	labs(x = "", y = "posterior log odds of relativizer\n(baseline = THAT)", 
-			 title = "Stylistic predictors") +
+		 title = "Stylistic predictors") +
 	scale_shape_manual(values = c(16, 2)) + scale_x_discrete(labels = rev(dims2)) +
 	theme(legend.justification=c(0,1), legend.position=c(0,1), 
-				legend.text = element_text(face = "italic"),
-				axis.text.y  = element_text(hjust= 1), legend.title = element_blank())
+		legend.text = element_text(face = "italic"),
+		axis.text.y  = element_text(hjust= 1), legend.title = element_blank())
 
 
 #--- External predictors ---
@@ -387,35 +387,34 @@ ext.df.obj <- data.frame(
 # create useable dataframe for ggplot
 ext.df.obj2 <- melt(ext.df.obj)
 ext.df.obj2$variety = factor(ifelse(grepl("AmE", ext.df.obj2$variable), 
-																		"AmE", "BrE"))
+				"AmE", "BrE"))
 ext.df.obj2$time = factor(ifelse(grepl("1960", ext.df.obj2$variable), 
-																 "1960s", "1990s"))
+				 "1960s", "1990s"))
 ext.df.obj2$rel = factor(ifelse(grepl("Wh", ext.df.obj2$variable), 
-																"WHICH", "ZERO"))
+				"WHICH", "ZERO"))
 
 confInt <- function(x){quantile(x, probs = c(.025, .975))}
 # add lower and upper bounds for the HPDI
 ext.df.obj3 <- cbind(aggregate(value ~ variety + time + rel, ext.df.obj2, 
-															 FUN = "mean"),
-										 aggregate(value ~ variety + time + rel, ext.df.obj2, 
-										 					FUN = "confInt")[,4][,1],
-										 aggregate(value ~ variety + time + rel, ext.df.obj2, 
-										 					FUN = "confInt")[,4][,2])	 
+				 FUN = "mean"),
+			aggregate(value ~ variety + time + rel, ext.df.obj2, 
+				FUN = "confInt")[,4][,1],
+			aggregate(value ~ variety + time + rel, ext.df.obj2, 
+				FUN = "confInt")[,4][,2])	 
 names(ext.df.obj3)[4:6] <- c("mean", "lower", "upper")
 
 # plot
 ggplot(ext.df.obj3, aes(time, mean, group = rel)) + facet_wrap(~ variety) +
 	geom_errorbar(aes(ymin = lower, ymax = upper), width = .1, 
-								position = position_dodge(.1)) +
+			position = position_dodge(.1)) +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	geom_point(aes(shape = rel), position = position_dodge(.1), size = rel(5)) +
 	geom_line(position = position_dodge(.1)) +
 	scale_shape_manual(values = c(16, 2)) +
 	labs(x = '', y = "posterior log odds of relativizer\n(baseline = THAT)", 
-			 title = "External predictors: Time by Variety") +
+		title = "External predictors: Time by Variety") +
 	theme(legend.justification=c(0,0), legend.position=c(0,0),
-				legend.title = element_blank())
-
+		legend.title = element_blank())
 
 
 # TABLES OF ESTIMATES ---------------------------------------------------
@@ -446,8 +445,6 @@ rownames(ab) <- gsub('^.*?\\.','', rownames(ab));
 rownames(ab)[c(1,5)] <- c("WHICH:Intercept", "ZERO:Intercept")
 
 
-
-
 # ===========================================================================
 # SUBJECT RC MODEL ------------------------------------------------------
 
@@ -465,29 +462,29 @@ subj.prior <- list(R = list(V = IJs, fix = 1))
 
 # prior for random effects is slightly different than above. 
 subj.prior$G <- list(G1 = list(V = 1, nu = .002), # intercept for category
-										 G2 = list(V = diag(4), n = 4), # by-cat random slope for corpus
-										 G3 = list(V = 1, nu = .002)) # intercept for file
+			G2 = list(V = diag(4), n = 4), # by-cat random slope for corpus
+			G3 = list(V = 1, nu = .002)) # intercept for file
 )
 
 # Again, in order to deal with near separation issues, Hadfield suggests using a
 # fixed effects prior that is flat on the probability scale (p55)
 SRC.formula <- rel ~ variety * time2 +
-													Style.Dim.1 + 
-													Style.Dim.2 +
-													Style.Dim.3 +
-													Style.Dim.4 +
-													Style.Dim.5 +
-													Style.Dim.6 +
-													Style.Dim.7 +
-													Int.Dim.1 +
-													Int.Dim.2 +
-													Int.Dim.3 +
-													Int.Dim.4 +
-													Int.Dim.5 +
-													Int.Dim.6 +
-													Int.Dim.7 +
-													Int.Dim.8 +
-													Int.Dim.9
+		Style.Dim.1 + 
+		Style.Dim.2 +
+		Style.Dim.3 +
+		Style.Dim.4 +
+		Style.Dim.5 +
+		Style.Dim.6 +
+		Style.Dim.7 +
+		Int.Dim.1 +
+		Int.Dim.2 +
+		Int.Dim.3 +
+		Int.Dim.4 +
+		Int.Dim.5 +
+		Int.Dim.6 +
+		Int.Dim.7 +
+		Int.Dim.8 +
+		Int.Dim.9
 
 fixSRC <- prior.scale(SRC.formula, subjrel)
 subj.prior$B <- B = list(mu = rep(0, nrow(fixSRC)), V = fixSRC*(1 + pi^2/3))
@@ -500,13 +497,13 @@ for(i in 1:16) {
 # %%%% select all and run %%%%
 t2 <- proc.time() #set time
 subj.m1a <- MCMCglmm(SRC.formula,
-										 random = ~ category + us(corpus):category + file,
-										 #rcov = ~us(trait):units, 
-										 pr = T,
-										 prior = subj.prior, 
-										 data = src.data, 
-										 family = "categorical",
-										 verbose = F, burnin = 50000, nitt = 200000, thin = 100)
+		random = ~ category + us(corpus):category + file,
+		#rcov = ~us(trait):units, 
+		pr = T,
+		prior = subj.prior, 
+		data = src.data, 
+		family = "categorical",
+		verbose = F, burnin = 50000, nitt = 200000, thin = 100)
 
 subj.m1a.runtime <- proc.time() - t2 # time to run (in seconds)
 
@@ -604,21 +601,21 @@ ext.var2 <- melt(fixed.src[, 18:20])
 
 # label dimensions transparently
 dims3 <- c("1. RC = non-adjacent", 
-					 "2. Antecedent head = empty", 
-					 "3. RC length", 
-					 "4. Antecedent = sing.",
-					 "7. prior rel. = ZERO/WHICH", 
-					 "9. nested = no")
+	"2. Antecedent head = empty", 
+	"3. RC length", 
+	"4. Antecedent = sing.",
+	"7. prior rel. = ZERO/WHICH", 
+	"9. nested = no")
 
 ggplot(int.var2, aes(variable, value)) + coord_flip() +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	stat_summary(fun.data = median_hilow, geom = "errorbar", 
-							 width = .1) +
+		width = .1) +
 	stat_summary(fun.y = mean, size = 4,
-							 geom = "point") + 
+		geom = "point") + 
 	scale_x_discrete(labels = rev(dims3)) +
 	labs(x = "", y = "posterior log odds of WHICH", 
-			 title = "Internal predictors")
+		title = "Internal predictors")
 
 
 #--- Stylistic predictors ---
@@ -628,12 +625,12 @@ ggplot(int.var2, aes(variable, value)) + coord_flip() +
 ggplot(style.var2, aes(variable, value)) + coord_flip() +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	stat_summary(fun.data = median_hilow, geom = "errorbar", 
-							 width = .1) +
+			width = .1) +
 	stat_summary(fun.y = mean, size = 4,
-							 geom = "point") +
+			geom = "point") +
 	scale_x_discrete(labels = rev(dims2)) +
 	labs(x = "", y = "posterior log odds of WHICH", 
-			 title = "Stylistic predictors")
+		title = "Stylistic predictors")
 
 
 #--- External predictors ---
@@ -649,22 +646,21 @@ ext.df2$time = factor(ifelse(grepl("1960", ext.df2$variable), "1960s", "1990s"))
 
 confInt <- function(x){quantile(x, probs = c(.025, .975))}
 ext.df3 <- cbind(aggregate(value ~ variety + time, ext.df2, FUN = "mean"),
-								 aggregate(value ~ variety + time, ext.df2, FUN = "confInt")[,3][,1],
-								 aggregate(value ~ variety + time, ext.df2, FUN = "confInt")[,3][,2])	 
+		aggregate(value ~ variety + time, ext.df2, FUN = "confInt")[,3][,1],
+		aggregate(value ~ variety + time, ext.df2, FUN = "confInt")[,3][,2])	 
 names(ext.df3)[3:5] <- c("mean", "lower", "upper")
 
 ggplot(ext.df3, aes(time, mean, group = variety)) + facet_wrap(~variety) +
 	geom_hline(yintercept = 0, linetype = "dashed") +
 	geom_errorbar(aes(ymin = lower, ymax = upper), width = .1, 
-								position = position_dodge(.1)) +
+			position = position_dodge(.1)) +
 	geom_point(position = position_dodge(.1), size = rel(5)) +
 	geom_line(position = position_dodge(.1)) +
 	scale_shape_manual(values = c(16)) +
 	labs(x = '', y = "posterior log odds of WHICH", 
-			 title = "External predictors: Time by Variety") +
+		title = "External predictors: Time by Variety") +
 	theme(legend.justification=c(0,0), legend.position=c(0,0),
-				legend.title = element_blank())
-
+		legend.title = element_blank())
 
 
 # TABLES OF ESTIMATES ---------------------------------------------------
