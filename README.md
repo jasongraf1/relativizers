@@ -17,10 +17,14 @@ source('.Rprofile')
 
 #### *R* 
 
-This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions. 
+This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions and extensions of common packages. 
+
+For the analysis:
 - [data_setup.R](R/data_setup.R): code for loading and readying the dataset
 - [FAMD_analysis.R](R/FAMD_analysis.R): code for running factor analysis of mixed data
 - [MCMCglmm_models.R](R/MCMCglmm_models.R): code for fitting the MCMCglmm models, obtaining the model predictions, and plotting and displaying the model results. For this code to work, you must first run the factor analyses in [FAMD_analysis.R](R/FAMD_analysis.R).
+
+Extensions:
 - [MCMCglmmExtensions.R](R/MCMCglmmExtensions.R): functions for working with MCMCglmm objects, e.g. calculating VIF and &kappa; scores
 - [ggExtensions.R](R/ggExtensions.R): functions for simplifying plots in [ggplot2](http://docs.ggplot2.org/current/) 
 - [statsExtensions.R](R/statsExtensions.R): functions for various statistical procedures, e.g. calculating standard errors, effect size measures (Cohen's *d*, Cramer's *V*), and scaling variables
