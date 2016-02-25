@@ -1,7 +1,5 @@
 ##############################################################################
-#
 # .Rprofile for MCMCglmm RC analysis
-#
 # Jason Grafmiller
 ##############################################################################
 
@@ -17,8 +15,8 @@ silent.load <- function(a.package){ # load without all the messages, etc.
 auto.loads <- c("coda", "gdata", "plyr", "dplyr", "reshape2", "xtable", "gtools")
 
 # packages for graphics
-auto.loads <- c(auto.loads,	c("grid", "ggplot2", "gridExtra", "ggthemes", 
-															"scales", "GGally"))
+auto.loads <- c(auto.loads, c("grid", "ggplot2", "gridExtra", "ggthemes", 
+		"scales", "GGally"))
 
 # some custom packages
 auto.loads <- c(auto.loads, c("languageR"))
@@ -26,25 +24,11 @@ auto.loads <- c(auto.loads, c("languageR"))
 # markdown packages
 auto.loads <- c(auto.loads, c("knitr", "pander", "captioner"))
 
-
-# more useful package sets:
-# for regression
-regression.pks <- c("lme4", "lmerTest", "rms", "effects", "car", "caret", 
-										"MuMIn")
-
-# for PCA, MCA, and factor analysis
-factor.pks <- c("FactoMineR", "cluster", "ca")
-
-# for Bayesian analysis
-bayesian.pks <- c("MCMCpack", "MCMCglmm", "blme", "BayesianFirstAid", 
-									"BayesFactor", "rstan", "rbugs", "rjags")
-
 # add necessary packages to auto.load
-auto.loads <- c(auto.loads, regression.pks, factor.pks[1], bayesian.pks[1:2])
+auto.loads <- c(auto.loads, "FactoMineR", "MCMCglmm", "MCMCpack")
 
 # load packages
 invisible(sapply(auto.loads, silent.load))
-
 
 # Markdown stuff --------------------------------------------------------
 
@@ -52,20 +36,14 @@ invisible(sapply(auto.loads, silent.load))
 figs <- captioner(prefix = "Figure")
 tbls <- captioner(prefix = "Table")
 
-
 # general supplement ----------------------------------------------------
-
 source("R/generalExtensions.R")
 source("R/statsExtensions.R")
 
-
 # MCMCglmm supplement ---------------------------------------------------
-
 source("R/MCMCglmmExtensions.R")
 
-
 # ggplot2 supplement ----------------------------------------------------
-
 source("R/ggExtensions.R")
 
 # define custom ggplot2 theme
@@ -77,14 +55,13 @@ theme_jg <- theme_set(theme_bw())
 theme_jg <- theme_update(
 	axis.text = element_text(size = rel(0.9), color="black"), 
 	plot.title = element_text(size = rel(1.25), 
-						margin = margin(0, 0, 10, 0)), 
+				margin = margin(0, 0, 10, 0)), 
 	strip.background = element_rect(fill = 'grey95'), 
 	strip.text = element_text(size = rel(.9)),
 	legend.position = 'bottom'
 	)
 
 #scale_fill_discrete <- function(...) scale_fill_grey(...)
-
 
 # misc ------------------------------------------------------------------
 
