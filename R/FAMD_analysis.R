@@ -107,6 +107,21 @@ for(i in 1:7){
 names(subjrel) # same as objrel
 internal <- names(subjrel)[c(22:23, 12, 14, 40:42, 18:20)]
 
+#--- Relabel category levels for interpretation ---
+
+# nestedness
+levels(subjrel$nested) <- c("non-nested", "nested")
+levels(objrel$nested) <- c("non-nested", "nested")
+
+# antecedent POS
+levels(subjrel$antPOS2) <- c("Ant.noun", "Ant.non-noun")
+levels(objrel$antPOS2) <- c("Ant.noun", "Ant.non-noun")
+
+# antecedent number
+levels(subjrel$antNum2)[1] <- "Ant.other.num"
+levels(objrel$antNum2)[1] <- "Ant.other.num"
+
+
 #=== subject RCs =====================================
 fmd.3 <- FAMD(subjrel[, internal], ncp = length(internal))
 summary(fmd.3)
@@ -357,5 +372,49 @@ famd.table <- function(dd, widths = c(.5,.2,.5)){
 }
 
 # famd.table(dd1[[1]])
+
+# --- Scree plots ---
+
+## stylistic factors
+
+sty_src <- fmd.1$eig 
+sty_src$dim <- factor(1:12, levels = 1:12)
+names(sty_src)[2:3] <- c("percent", "cumulative") 
+sty_nsrc <- fmd.2$eig
+sty_nsrc$dim <- factor(1:12, levels = 1:12)
+names(sty_nsrc)[2:3] <- c("percent", "cumulative") 
+
+sty_src_p <- ggplot(sty_src, aes(dim, percent)) +
+	geom_bar(stat = "identity", width = .7, fill = "steelblue2") +
+	geom_point(size = rel(1.8)) + geom_line(aes(x = 1:12)) +
+	labs(y = "percentage of variance", x = "dimension", title = "SRC data")
+
+sty_nsrc_p <- ggplot(sty_nsrc, aes(dim, percent)) +
+	geom_bar(stat = "identity", width = .7, fill = "steelblue2") +
+	geom_point(size = rel(1.8)) + geom_line(aes(x = 1:12)) +
+	labs(y = "", x = "dimension", title = "NSRC data")
+
+# grid.arrange(sty_src_p, sty_nsrc_p, ncol = 2)
+
+## internal factors
+
+int_src <- fmd.3$eig 
+int_src$dim <- factor(1:9, levels = 1:9)
+names(int_src)[2:3] <- c("percent", "cumulative") 
+int_nsrc <- fmd.4$eig
+int_nsrc$dim <- factor(1:9, levels = 1:9)
+names(int_nsrc)[2:3] <- c("percent", "cumulative") 
+
+int_src_p <- ggplot(int_src, aes(dim, percent)) +
+	geom_bar(stat = "identity", width = .7, fill = "steelblue2") +
+	geom_point(size = rel(1.8)) + geom_line(aes(x = 1:9)) +
+	labs(y = "percentage of variance", x = "dimension", title = "SRC data")
+
+int_nsrc_p <- ggplot(int_nsrc, aes(dim, percent)) +
+	geom_bar(stat = "identity", width = .7, fill = "steelblue2") +
+	geom_point(size = rel(1.8)) + geom_line(aes(x = 1:9)) +
+	labs(y = "", x = "dimension", title = "NSRC data")
+
+# grid.arrange(int_src_p, int_nsrc_p, ncol = 2)
 
 ##############################################################################
