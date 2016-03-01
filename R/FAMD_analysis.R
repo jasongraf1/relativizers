@@ -6,7 +6,6 @@
 library(FactoMineR)
 
 # DATA ------------------------------------------------------------------
-
 source("R/data_setup.R")
 
 #--- 2 dataframes ---
@@ -100,7 +99,6 @@ for(i in 1:7){
 	}
 	cat('\n')
 }
-
 
 # INTERNAL FACTORS ------------------------------------------------------
 
@@ -333,14 +331,12 @@ objrel <- cbind(objrel, obj.5.dims)
 justify <- function(x, hjust="center", vjust="top", draw = FALSE){
 	w <- sum(x$widths)
 	h <- sum(x$heights)
-	xj <- switch(hjust,
-							 center = 0.5,
-							 left = 0.5*w,
-							 right=unit(1,"npc") - 0.5*w)
-	yj <- switch(vjust,
-							 center = 0.5,
-							 bottom = 0.5*h,
-							 top=unit(1,"npc") - 0.5*h)
+	xj <- switch(hjust, center = 0.5,
+						left = 0.5 * w,
+						right=unit(1,"npc") - 0.5 * w)
+	yj <- switch(vjust, center = 0.5,
+						bottom = 0.5*h,
+						top=unit(1,"npc") - 0.5*h)
 	x$vp <- viewport(x=xj, y=yj)
 	if(draw) grid.draw(x)
 	return(x)
@@ -348,25 +344,19 @@ justify <- function(x, hjust="center", vjust="top", draw = FALSE){
 
 # make the tables of the significant variables 
 famd.table <- function(dd, widths = c(.5,.2,.5)){
-  # dd is one dimension from a dimdesc() object
-	
-  # make the matrices for the tables (without p values)
-  est1 <- as.matrix(data.frame(correlation = dd[[1]][, 1]))
+    # dd is one dimension from a dimdesc() object
+	# make the matrices for the tables (without p values)
+    est1 <- as.matrix(data.frame(correlation = dd[[1]][, 1]))
 	rownames(est1) <- rownames(dd[[1]])
 	est2 <- as.matrix(data.frame(R2 = dd[[2]][, 1]))
 	rownames(est2) <- rownames(dd[[2]])
 	est3 <- as.matrix(data.frame(Estimate = dd[[3]][, 1]))
 	rownames(est3) <- rownames(dd[[3]])
   
-  # make tableGrobs
-  a <- justify(tableGrob(round(est1, 3), 
-											 theme = ttheme_minimal(), widths = unit(c(1), "mm")))
-  b <- justify(tableGrob(round(est2, 3), 
-											 theme = ttheme_minimal(), 
-							 widths = unit(c(2), "cm")))
-	d <- justify(tableGrob(round(est3, 3), theme = ttheme_minimal(), 
-							 widths = unit(c(1), "cm")))
-	
+    # make tableGrobs
+    a <- justify(tableGrob(round(est1, 3), theme = ttheme_minimal(), widths = unit(c(1), "mm")))
+    b <- justify(tableGrob(round(est2, 3), theme = ttheme_minimal(), widths = unit(c(2), "cm")))
+    d <- justify(tableGrob(round(est3, 3), theme = ttheme_minimal(), widths = unit(c(1), "cm")))
 	# plot tables
 	grid.arrange(a, b, d, nrow = 1, widths = widths)
 }
