@@ -15,7 +15,7 @@ In addition, an [.Rprofile](.Rprofile) script is included which loads all the ne
 source('.Rprofile')
 ```
 
-#### *R* 
+#### R 
 
 This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions and extensions of common packages. 
 
