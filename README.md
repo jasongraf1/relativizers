@@ -15,7 +15,7 @@ In addition, an [.Rprofile](.Rprofile) script is included which loads all the ne
 source('.Rprofile')
 ```
 
-#### R 
+### R 
 
 This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions and extensions of common packages. 
 
@@ -26,14 +26,11 @@ The following files are all that is necessary for reproducing the the analysis. 
 
 Extensions:
 - [MCMCglmmExtensions.R](R/MCMCglmmExtensions.R): functions for working with MCMCglmm objects, e.g. calculating VIF and &kappa; scores
-- [ggExtensions.R](R/ggExtensions.R): functions for simplifying plots in [ggplot2](http://docs.ggplot2.org/current/) 
-- [statsExtensions.R](R/statsExtensions.R): functions for various statistical procedures, e.g. calculating standard errors, effect size measures (Cohen's *d*, Cramer's *V*), and scaling variables
-- [generalExtensions.R](R/generalExtensions.R): miscellaneous functions for, e.g. manipulating objects, creating pop-up notifications, loading/detaching multiple items simultaneously.
 
-#### data
+### data
 
 This subdirectory contains the tab-delimited file [relative_clauses.txt](data/relative_clauses.txt). This is a modified version of the dataset collected and annotated by Hinrichs, Szmrecsanyi & Bohmann ([2015](https://muse.jhu.edu/journals/language/v091/91.4.hinrichs.html)). 
 
-#### documents
+### documents
 
 This subdirectory contains two files documenting the dataset: the [code book](documents/CodeBookDec2011.pdf) and a [description](relativizers/documents/MANUAL FOR CODING RELATIVIZERS IN THE BROWN CORPORA.pdf) of how tokens were extracted. Documentaion for the MCMCglmm package can be found on CRAN.
