@@ -17,7 +17,7 @@ source('.Rprofile')
 
 ### R 
 
-This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions and extensions of common packages. 
+This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a supplementary file containing various custom functions and extensions for MCMCglmm. 
 
 The following files are all that is necessary for reproducing the the analysis. They should be run in the order listed.
 - [data_setup.R](R/data_setup.R): code for loading and readying the dataset
