@@ -1,6 +1,6 @@
-# Analyzing English restrictive relativizers
+# Data & code repository for *Restricting restrictive relativizers*
 
-Documentation and R code for multinomial analysis of English restrictive relativizers, as reported in Grafmiller, Szmrecsanyi & Hinrichs (forthcoming). 
+Documentation and R code for multinomial analysis of English restrictive relativizers, as reported in Grafmiller, Szmrecsanyi & Hinrichs (forthcoming). Restricting restrictive relativizers. Constraints on subject and non-subject English relative clauses. *Corpus Linguistics and Linguistic Theory*
 
 ## Organization of repository
 
