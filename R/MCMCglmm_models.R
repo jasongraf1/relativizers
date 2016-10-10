@@ -7,7 +7,7 @@
 ##############################################################################
 
 # The code here assumes that the FAMD analyses have already been run and the
-# resultign dimensions added to the respective dataframes. 
+# resulting dimensions added to the respective dataframes. 
 # See the file 'FAMD_analysis.R' for this
 
 
