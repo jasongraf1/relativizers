@@ -1,18 +1,21 @@
 ############################################################################
 #
 # Data setup for MCMCglmm modeling of Brown relativizers
-#
+# 
+# Jason Grafmiller
 ############################################################################
+
+
+# Load raw data ---------------------------------------------------------
 
 # load data file:
 relativizers <- read.delim("data/relative_clauses.txt", strip.white = T)
 
-#----------------------------------------------------------------------------
-# Prepare dataframe
-#----------------------------------------------------------------------------
+
+# Prepare dataframe -----------------------------------------------------
 
 ### NOTE: the dataset that we create here is not 100% identical to the 
-# dataset analyzed in the Language paper
+# dataset analyzed in Hinrichs et al. (2015)
 # (there we weeded out garbage in a slightly more ad-hoc fashion ...)
 
 # recode stuff
@@ -47,21 +50,24 @@ relativizers$plainText <- trim(relativizers$plainText)
 names(relativizers)[c(26:27, 32, 35)] <- c("meanWordLen", "meanSentLen", 
 	"passiveActiveRatio", "nounVerbRatio")
 
-### obj function RC dataset
+
+# Split data by relativizer function ------------------------------------
+
+# obj function RC dataset
 objrel <- droplevels(subset(relativizers, relFct == "Obj"))
-### prunedAntHead
+# prunedAntHead
 objrel$prunedAntHead <- filter.infrequent(objrel$antHead, 4)
 
-### subj RC dataset
+# subj RC dataset
 subjrel <- droplevels(subset(relativizers, relFct == "Subj"))
 subjrel$prunedAntHead <- filter.infrequent(subjrel$antHead, 4)
 
-### remove construction and context columns
+# remove construction and context columns
 objrel <- objrel[, -c(42)]
 subjrel <- subjrel[, -c(42)]
 
-### remove unnecessary data
-#rm(list = c("relativizers")) 
+# remove unnecessary data
+# rm(list = c("relativizers")) 
 
 
 ############################################################################
