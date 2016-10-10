@@ -4,48 +4,30 @@
 ##############################################################################
 
 # Packages --------------------------------------------------------------
-# taken in part from my standard .Rprofile
 
 silent.load <- function(a.package){ # load without all the messages, etc.
 	suppressWarnings(suppressPackageStartupMessages(
 		library(a.package, character.only = TRUE)))
 }
 
-# packages for data manipulation
-auto.loads <- c("coda", "gdata", "plyr", "dplyr", "reshape2", "xtable", "gtools")
-
-# packages for graphics
-auto.loads <- c(auto.loads, c("grid", "ggplot2", "gridExtra", "ggthemes", 
-		"scales", "GGally"))
-
-# some custom packages
-auto.loads <- c(auto.loads, c("languageR"))
-
-# markdown packages
-auto.loads <- c(auto.loads, c("knitr", "pander", "captioner"))
-
-# add necessary packages to auto.load
-auto.loads <- c(auto.loads, "FactoMineR", "MCMCglmm", "MCMCpack")
+auto.loads <- c("coda", "gdata", "plyr", "dplyr", "reshape2", "xtable", "gtools", # packages for data manipulation
+	       "grid", "ggplot2", "gridExtra", "ggthemes", "scales", "GGally", # packages for graphics
+	       "knitr", "pander", "captioner", # markdown packages
+	       "FactoMineR", "MCMCglmm", "MCMCpack" # packages fro analysis
+	       )
 
 # load packages
 invisible(sapply(auto.loads, silent.load))
 
 # Markdown stuff --------------------------------------------------------
-
 # for creating and referencing tables and figures 
 figs <- captioner(prefix = "Figure")
 tbls <- captioner(prefix = "Table")
 
-# general supplement ----------------------------------------------------
-source("R/generalExtensions.R")
-source("R/statsExtensions.R")
-
 # MCMCglmm supplement ---------------------------------------------------
 source("R/MCMCglmmExtensions.R")
 
-# ggplot2 supplement ----------------------------------------------------
-source("R/ggExtensions.R")
-
+# ggplot2 theme ---------------------------------------------------------
 # define custom ggplot2 theme
 theme_jg <- theme_set(theme_bw())
 # increase size of axis text 
@@ -61,9 +43,7 @@ theme_jg <- theme_update(
 	legend.position = 'bottom'
 	)
 
-#scale_fill_discrete <- function(...) scale_fill_grey(...)
-
-# misc ------------------------------------------------------------------
+# Misc ------------------------------------------------------------------
 
 # add in the path for perl
 perl <- "C:/strawberry/perl/bin/perl.exe"
