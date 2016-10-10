@@ -19,7 +19,7 @@ source('.Rprofile')
 
 This subdirectory contains R scripts for setting up the dataframe, running the factor analysis of mixed data, and running the Bayesian regression models using the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package. It also contains a number of supplementary files containing various custom functions and extensions of common packages. 
 
-For the analysis:
+The following files are all that is necessary for reproducing the the analysis. They should be run in the order listed.
 - [data_setup.R](R/data_setup.R): code for loading and readying the dataset
 - [FAMD_analysis.R](R/FAMD_analysis.R): code for running factor analysis of mixed data
 - [MCMCglmm_models.R](R/MCMCglmm_models.R): code for fitting the MCMCglmm models, obtaining the model predictions, and plotting and displaying the model results. For this code to work, you must first run the factor analyses in [FAMD_analysis.R](R/FAMD_analysis.R).
