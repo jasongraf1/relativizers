@@ -1,6 +1,6 @@
 # Data & code repository for *Restricting restrictive relativizers*
 
-Documentation and R code for multinomial analysis of English restrictive relativizers, as reported in Grafmiller, Szmrecsanyi & Hinrichs (forthcoming). Restricting restrictive relativizers. Constraints on subject and non-subject English relative clauses. *Corpus Linguistics and Linguistic Theory*
+Documentation and R code for multinomial analysis of English restrictive relativizers, as reported in Grafmiller, Szmrecsanyi & Hinrichs (2016). Restricting restrictive relativizers. Constraints on subject and non-subject English relative clauses. *Corpus Linguistics and Linguistic Theory*. DOI: [10.1515/cllt-2016-0015](https://www.degruyter.com/view/j/cllt.ahead-of-print/cllt-2016-0015/cllt-2016-0015.xml?format=INT)
 
 ## Organization of repository
 
