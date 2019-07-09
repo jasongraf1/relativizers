@@ -23,7 +23,7 @@ filter.infrequent <- function(words, threshold = 5, dummy = "OTHER") {
         as.character(words), dummy)), dummy))
 }
 
-as.numeric2 <- function(x, cols = NULL, as.char = T) {
+as.numeric2 <- function(x, cols = NULL, as.char = FALSE) {
   # same as 'as.numeric()' but can be applied to an entire dataframe or matrix
   # will return NAs for character vectors that are not numbers
   if (is.null(cols)) {
