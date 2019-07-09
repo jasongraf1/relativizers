@@ -9,8 +9,40 @@
 # Load raw data ---------------------------------------------------------
 
 # load data file:
-relativizers <- read.delim("data/relative_clauses.txt", strip.white = T)
+relativizers <- read.delim("data/relative_clauses.txt", strip.white = T,
+			  stringsAsFactors = T)
 
+# Custom functions ------------------------------------------------------
+
+filter.infrequent <- function(words, threshold = 5, dummy = "OTHER") {
+  # code from WBRS for recoding infrequent factor levels (default is <= 5
+  # observations)
+  return(relevel(
+    as.factor(
+      ifelse(words %in% levels(as.factor(words))[table(words) >= threshold],
+        as.character(words), dummy)), dummy))
+}
+
+as.numeric2 <- function(x, cols = NULL, as.char = T) {
+  # same as 'as.numeric()' but can be applied to an entire dataframe or matrix
+  # will return NAs for character vectors that are not numbers
+  if (is.null(cols)) {
+    cols <- 1:ncol(x)
+  } else {
+    cols <- cols
+  }
+  if (as.char) {
+    df <- as.data.frame(
+      lapply(x[cols], FUN = function(v) as.numeric(as.character(v)))
+    )
+  }
+  else {
+    df <- as.data.frame(
+      lapply(x[cols], FUN = function(v) as.numeric(v))
+    )
+  }
+  return(df)
+}
 
 # Prepare dataframe -----------------------------------------------------
 
