@@ -41,7 +41,7 @@ display.dims <- function(x) {
 style <- names(subjrel)[c(7, 25:29,31:32, 34:37)]
 
 # calculate condition number of matrix
-fmd.1.cnum <- languageR::collin.fnc(as.numeric2(subjrel[, style]))$cnumber
+fmd.1.cnum <- languageR::collin.fnc(as.numeric2(subjrel, cols = style))$cnumber
 # 108.6358
 
 #=== subject RCs ===
@@ -91,7 +91,7 @@ for(i in 1:7){
 fmd.2 <- FAMD(objrel[, style], ncp = length(style))
 
 # Calculate condition number of matrix.
-fmd.2.cnum <- languageR::collin.fnc(as.numeric2(objrel[, style[-1]]))$cnumber
+fmd.2.cnum <- languageR::collin.fnc(as.numeric2(objrel, cols = style[-1]))$cnumber
 # 130.0957
 
 #--- Eigenvalues ---
